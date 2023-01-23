@@ -22,9 +22,14 @@ class SalesPerson(models.Model):
 
 class Customer(models.Model):
     customer_name = models.CharField(max_length=200, unique=True)
-    adress = models.CharField(max_length=200, unique=True)
+    address = models.CharField(max_length=200, unique=True)
     phone_number = models.BigIntegerField()
 
+    def __str__(self):
+        return f"{self.customer_name} {self.address} {self.phone_number}"
+
+    def get_api_url(self):
+        return reverse("detail_of_customer", kwargs={"pk": self.pk})
 
 class Sales(models.Model):
     automobile = models.ForeignKey(
