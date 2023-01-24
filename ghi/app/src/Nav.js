@@ -16,6 +16,12 @@ function Nav() {
             <li className="nav-item">
               <NavLink className="nav-link active" aria-current="page" to="/ManufacturerList">Manufacturer List</NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" aria-current="page" to="/ModelForm">Model Form</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" aria-current="page" to="/ModelList">Model List</NavLink>
+            </li>
           </ul>
         </div>
       </div>
