@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 import json
 
-from .models import AutomobileVO, SalesPerson, Customer, Sales
+from .models import AutomobileVO, SalesPerson, Customer, SalesRecord
 from common.json import ModelEncoder
 
 
@@ -20,6 +20,19 @@ class SalesPersonDetailEncoder(ModelEncoder):
 class CustomerListEncoder(ModelEncoder):
     model = Customer
     properties = ["customer_name", "address", "phone_number", "id"]
+
+
+class SalesRecordListEncoder(ModelEncoder):
+    model = SalesRecord
+    properties = ["sales_person", "customer", "sales_price", "id"]
+    encoders = {
+        "sales_person": SalesPersonListEncoder(),
+        "customer": CustomerListEncoder(),
+    }
+    def get_extra_data(self, o):
+        return {
+            "vin": o.automobile.vin,
+        }
 
 
 @require_http_methods(["GET", "POST"])
@@ -160,3 +173,34 @@ def detail_of_customer(request, pk):
             response = JsonResponse({"message": "Customer not exist"})
             response.status_code = 400
             return response
+
+
+@require_http_methods(["GET", "POST"])
+def list_sale_records(request):
+    if request.method == "GET":
+        sales_record = SalesRecord.objects.all()
+        return JsonResponse(
+            {"sales_record": sales_record},
+            encoder = SalesRecordListEncoder,
+            safe = False
+        )
+    else:
+        # try: #POST
+            content = json.loads(request.body)
+            content = {
+                "sales_person": SalesPerson.objects.get(pk=content["sales_person"]),
+                "automobile": AutomobileVO.objects.get(vin=content["automobile"]),
+                "customer": Customer.objects.get(pk=content["customer"]),
+            }
+            sales_record = SalesRecord.objects.create(**content)
+            return JsonResponse(
+                {"sales_record": sales_record},
+                encoder = SalesRecordListEncoder,
+                safe = False,
+            )
+        # except:
+        #     response = JsonResponse(
+        #         {"message": "Sales record can not be created"}
+        #     )
+        #     response.status_code = 400
+        #     return response
