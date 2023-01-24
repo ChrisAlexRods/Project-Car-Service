@@ -11,9 +11,9 @@ class AutomobileVOEncoder(ModelEncoder):
     model = AutomobileVO
     properties = ["vin"]
 
-class AutomobileVOEncoder(ModelEncoder):
-    model = AutomobileVO
-    properties = ["vin"]
+# class AutomobileVOEncoder(ModelEncoder):
+#     model = AutomobileVO
+#     properties = ["vin"]
 
 class TechnicianListEncoder(ModelEncoder):
     model = Technician
@@ -30,18 +30,17 @@ class TechnicianDetailEncoder(ModelEncoder):
 
 class AppointmentListEncoder(ModelEncoder):
     model = Appointment
-    properties = ["name", "date", "time", "reason_for_service", "automobile", "technician"]
-    # def get_extra_data(self, o):
-    #     return {"bin": o.bin.id}
+    properties = ["name", "date", "time", "reason_for_service", "automobile", "status", "technician"]
+    def get_extra_data(self, o):
+        return {"status": o.status.name}
     encoders = {
         "automobile": AutomobileVOEncoder(),
         "technician": TechnicianDetailEncoder(),
-        # "status":
     }
 class AppointmentDetailEncoder(ModelEncoder):
     model = Appointment
     properties = [
-        "name", "date", "time", "reason_for_service", "automobile", "technician"
+        "name", "date", "time", "reason_for_service", "automobile", "status", "technician"
     ]
     encoders = {
         "automobile": AutomobileVOEncoder(),
