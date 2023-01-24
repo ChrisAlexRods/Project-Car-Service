@@ -1,12 +1,13 @@
 from django.db import models
 from django.urls import reverse
 
+
 class AutomobileVO(models.Model):
-    import_href = models.CharField(max_length=200, unique=True)
-    color = models.CharField(max_length=50)
-    year = models.PositiveSmallIntegerField()
     vin = models.CharField(max_length=17, unique=True)
-    model = models.CharField(max_length=17, unique=True)
+
+    def __str__(self):
+        return f"{self.vin}"
+
 
 
 class SalesPerson(models.Model):
@@ -31,9 +32,26 @@ class Customer(models.Model):
     def get_api_url(self):
         return reverse("detail_of_customer", kwargs={"pk": self.pk})
 
-class Sales(models.Model):
+
+class SalesRecord(models.Model):
     automobile = models.ForeignKey(
         AutomobileVO,
-        related_name="sales",
+        related_name="sales_records",
+        on_delete=models.PROTECT,
+    )
+    sales_person = models.ForeignKey(
+        SalesPerson,
+        related_name="sales_records",
+        on_delete=models.PROTECT,
+    )
+    customer = models.ForeignKey(
+        Customer,
+        related_name="sales_records",
         on_delete=models.CASCADE,
     )
+    sales_price = models.CharField(max_length=255)
+
+
+
+    def get_api_url(self):
+        return reverse("list_sale_records", kwargs={"pk": self.pk})
