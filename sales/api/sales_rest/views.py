@@ -24,7 +24,7 @@ class CustomerListEncoder(ModelEncoder):
 
 class SalesRecordListEncoder(ModelEncoder):
     model = SalesRecord
-    properties = ["sales_person", "customer", "sales_price", "id"]
+    properties = ["sales_person", "customer", "sales_price","id"]
     encoders = {
         "sales_person": SalesPersonListEncoder(),
         "customer": CustomerListEncoder(),
@@ -185,7 +185,7 @@ def list_sale_records(request):
             safe = False
         )
     else:
-        # try: #POST
+        try: #POST
             content = json.loads(request.body)
             content = {
                 "sales_person": SalesPerson.objects.get(pk=content["sales_person"]),
@@ -198,9 +198,55 @@ def list_sale_records(request):
                 encoder = SalesRecordListEncoder,
                 safe = False,
             )
-        # except:
-        #     response = JsonResponse(
-        #         {"message": "Sales record can not be created"}
-        #     )
-        #     response.status_code = 400
-        #     return response
+        except:
+            response = JsonResponse(
+                {"message": "Sales record can not be created"}
+            )
+            response.status_code = 400
+            return response
+
+
+@require_http_methods(["DELETE", "GET", "PUT"])
+def detail_sale_record(request, pk):
+    if request.method == "GET":
+        try:
+            sales_record = SalesRecord.objects.get(id = pk)
+            return JsonResponse(
+                sales_record,
+                encoder = SalesRecordListEncoder,
+                safe = False
+            )
+        except SalesRecord.DoesNotExist:
+            return JsonResponse({"Message": "Does not exist"})
+    elif request.method == "DELETE":
+        try:
+            sale_record = SalesRecord.objects.get(id =pk)
+            sale_record.delete()
+            return JsonResponse(
+                sale_record,
+                encoder = SalesRecordListEncoder,
+                safe = False,
+            )
+        except SalesRecord.DoesNotExist:
+            response = JsonResponse({"The Sales record Does not exist"})
+            response.status_code = 404
+            return response
+    else:
+        try:
+            content = json.loads(request.body)
+            sale_record = SalesRecord.objects.get(id = pk)
+
+            props = ["automobile", "sales_person", "customer", "sales_price"]
+            for prop in props:
+                if prop in content:
+                    setattr(sale_record, prop, content[prop])
+                sale_record.save()
+                return JsonResponse(
+                    sale_record,
+                    encoder = SalesRecordListEncoder,
+                    safe = False
+                )
+        except SalesRecord.DoesNotExist:
+            response = JsonResponse({"message": "The Sales Record Does not exist"})
+            response.status_code = 404
+            return response
