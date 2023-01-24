@@ -52,6 +52,8 @@ class SalesRecord(models.Model):
     sales_price = models.CharField(max_length=255)
 
 
-
     def get_api_url(self):
-        return reverse("list_sale_records", kwargs={"pk": self.pk})
+        return reverse("list_of_sales_people", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        return f"{self.automobile} {self.sales_person} {self.customer} {self.sales_price}"
