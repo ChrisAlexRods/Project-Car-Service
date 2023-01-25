@@ -1,37 +1,54 @@
 import React, {useEffect, useState } from 'react';
 
-function AutomobileForm() {
+function AppointmentForm() {
 
-    const [models, setModels] = useState([])
+    const [status, setStatus] = useState([])
+    const [technicians, setTechnicians] = useState([])
 
     const [formData, setFormData] = useState({
-        color: '',
-        year: '',
         vin: '',
-        model_id: '',
+        name: '',
+        date: '',
+        time: '',
+        reason_for_service: '',
+        vip: '',
+        status: '',
+        technician: '',
       })
     //   console.log(formData)
 
-    const fetchData = async () => {
-        const url = 'http://localhost:8100/api/models/';
+    const fetchStatusData = async () => {
+        const url = 'http://localhost:8080/api/appointments/';
         const response = await fetch(url);
         // console.log(response)
         if (response.ok) {
             const data = await response.json();
-            setModels(data.models);
+            setStatus(data.statuses);
             // console.log(bins)
         }
-
     }
-
     useEffect(() => {
-    fetchData();
+        fetchStatusData();
+    }, []);
+
+    const fetchTechnicianData = async () => {
+        const url = 'http://localhost:8080/api/technicians/';
+        const response = await fetch(url);
+        // console.log(response)
+        if (response.ok) {
+            const data = await response.json();
+            setTechnicians(data.technicians);
+            // console.log(bins)
+        }
+    }
+    useEffect(() => {
+        fetchTechnicianData();
     }, []);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const url = 'http://localhost:8100/api/automobiles/';
+        const url = 'http://localhost:8080/api/appointments/';
         const fetchOptions = {
             method: 'post',
             body: JSON.stringify(formData),
@@ -42,10 +59,14 @@ function AutomobileForm() {
         const response = await fetch(url, fetchOptions);
         if (response.ok) {
             setFormData({
-                color: '',
-                year: '',
                 vin: '',
-                model_id: '',
+                name: '',
+                date: '',
+                time: '',
+                reason_for_service: '',
+                vip: '',
+                status: '',
+                technician: '',
             })
         }
     }
@@ -69,7 +90,7 @@ function AutomobileForm() {
                             <div className="row">
                                 <div className="col">
                                     <div className="mb-3">
-                                        <select onChange={handleFormChange} value={formData.model_id} name="model_id" id="model_id" className="form-select" required>
+                                        <select onChange={handleFormChange} value={formData.model} name="model" id="model" className="form-select" required>
                                             <option value="">Choose a model</option>
                                             {models.map(model => {
                                             return (
@@ -101,4 +122,4 @@ function AutomobileForm() {
     );
 }
 
-export default AutomobileForm;
+export default AppointmentForm;

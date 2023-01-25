@@ -35,7 +35,6 @@ class AppointmentListEncoder(ModelEncoder):
     def get_extra_data(self, o):
         return {
             "status": o.status.name,
-            "automobile": o.automobile.vin,
         }
     encoders = {
         # "automobile": AutomobileVOEncoder(),
@@ -49,7 +48,6 @@ class AppointmentDetailEncoder(ModelEncoder):
     def get_extra_data(self, o):
         return {
             "status": o.status.name,
-            "automobile": o.automobile.vin,
         }
     encoders = {
         # "automobile": AutomobileVOEncoder(),
@@ -137,7 +135,7 @@ def api_list_appointments(request):
         # try:
         content = {
             "technician": Technician.objects.get(pk=content["technician"]),
-            "automobile": AutomobileVO.objects.get(vin=content["automobile"]),
+            # "automobile": AutomobileVO.objects.get(vin=content["automobile"]),
         }
         appointment = Appointment.objects.create(**content)
         return JsonResponse(

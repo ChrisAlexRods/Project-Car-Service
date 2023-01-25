@@ -31,6 +31,9 @@ function Nav() {
             <li className="nav-item">
               <NavLink className="nav-link active" aria-current="page" to="/SalesPersonForm">Sales Person Form</NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" aria-current="page" to="/TechnicianForm">Technician Form</NavLink>
+            </li>
           </ul>
         </div>
       </div>
