@@ -24,7 +24,7 @@ class SalesPerson(models.Model):
 class Customer(models.Model):
     customer_name = models.CharField(max_length=200, unique=True)
     address = models.CharField(max_length=200, unique=True)
-    phone_number = models.BigIntegerField()
+    phone_number = models.CharField (max_length=11)
 
     def __str__(self):
         return f"{self.customer_name} {self.address} {self.phone_number}"
@@ -49,7 +49,7 @@ class SalesRecord(models.Model):
         related_name="sales_records",
         on_delete=models.CASCADE,
     )
-    sales_price = models.CharField(max_length=255)
+    sales_price = models.PositiveSmallIntegerField()
 
 
     def get_api_url(self):
