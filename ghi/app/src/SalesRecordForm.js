@@ -62,10 +62,10 @@ function SalesRecordForm(){
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = {}
-        data.automobile = automobile;
-        data.sales_person = sales_person
-        data.customer = customer;
-        data.sales_price = sales_price;
+        data.automobile = selectedAuto;
+        data.sales_person = selectedSalesPerson
+        data.customer = selectedCustomer
+        data.sales_price = sales_price
 
 
         const salesRecordUrl = "http://localhost:8090/api/sale_record/"
@@ -76,8 +76,10 @@ function SalesRecordForm(){
                 'Content-Type': 'application/json',
             },
         };
-        const response = await fetch(salesRecordUrl,fetchConfig)
+
+        const response = await fetch(salesRecordUrl, fetchConfig)
         if(response.ok){
+            const newLocation = await response.json();
             setSelectedAuto('')
             setSelectedSalesPerson('')
             setSelectedCustomer('')
@@ -109,7 +111,7 @@ function SalesRecordForm(){
                 <select required name="automobile" id="automobile" className="form-select" onChange={handleAutomobileChange} >
                     <option  value="">Choose a Automobile</option>
                     {automobile.map(autos => (
-                      <option key={autos.id} value={autos.id}>{autos.vin}</option>
+                      <option key={autos.vin} value={autos.vin}>{autos.vin}</option>
                     ))}
                   </select>
                   </div>

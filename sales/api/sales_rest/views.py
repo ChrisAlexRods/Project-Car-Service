@@ -185,7 +185,7 @@ def list_sale_records(request):
             safe = False
         )
     else:
-        # try: #POST
+        try:
             content = json.loads(request.body)
             content = {
                 "sales_person": SalesPerson.objects.get(pk=content["sales_person"]),
@@ -199,12 +199,22 @@ def list_sale_records(request):
                 encoder = SalesRecordListEncoder,
                 safe = False,
             )
-        # except:
-        #     response = JsonResponse(
-        #         {"message": "Sales record can not be created"}
-        #     )
-        #     response.status_code = 400
-        #     return response
+        except SalesPerson.DoesNotExist:
+            return JsonResponse(
+                {"message": "A sales person with the given ID does not exist."},
+                status=400
+            )
+        except AutomobileVO.DoesNotExist:
+            return JsonResponse(
+                {"message": "A automobile with the given VIN does not exist."},
+                status=400
+            )
+        except Customer.DoesNotExist:
+            return JsonResponse(
+                {"message": "A customer with the given ID does not exist."},
+                status=400
+            )
+
 
 
 @require_http_methods(["DELETE", "GET", "PUT"])
