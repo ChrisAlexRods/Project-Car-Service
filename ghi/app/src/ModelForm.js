@@ -73,7 +73,7 @@ function ModelForm(){
                   </div>
                   <div className="mb-3">
                   <select required name="manufacturer" id="manufacturer" className="form-select" value={selectedManufacturerId} onChange={handleManufacturer} >
-                    <option  value="">Choose a manufacturer</option>
+                    <option  value="">Choose a Manufacturer</option>
                     {manufacturer.map(manufacturer => (
                       <option key={manufacturer.id} value={manufacturer.id}>{manufacturer.name}</option>
                     ))}

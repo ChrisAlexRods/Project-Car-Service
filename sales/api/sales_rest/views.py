@@ -185,12 +185,13 @@ def list_sale_records(request):
             safe = False
         )
     else:
-        try: #POST
+        # try: #POST
             content = json.loads(request.body)
             content = {
                 "sales_person": SalesPerson.objects.get(pk=content["sales_person"]),
                 "automobile": AutomobileVO.objects.get(vin=content["automobile"]),
                 "customer": Customer.objects.get(pk=content["customer"]),
+                "sales_price": content["sales_price"],
             }
             sales_record = SalesRecord.objects.create(**content)
             return JsonResponse(
@@ -198,12 +199,12 @@ def list_sale_records(request):
                 encoder = SalesRecordListEncoder,
                 safe = False,
             )
-        except:
-            response = JsonResponse(
-                {"message": "Sales record can not be created"}
-            )
-            response.status_code = 400
-            return response
+        # except:
+        #     response = JsonResponse(
+        #         {"message": "Sales record can not be created"}
+        #     )
+        #     response.status_code = 400
+        #     return response
 
 
 @require_http_methods(["DELETE", "GET", "PUT"])
