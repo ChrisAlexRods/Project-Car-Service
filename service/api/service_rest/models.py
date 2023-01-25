@@ -14,13 +14,14 @@ class AutomobileVO(models.Model):
 class Technician(models.Model):
 
     name = models.CharField(max_length=200)
-    employee_number = models.CharField(max_length=200)
+    employee_number = models.CharField(max_length=25, unique=True, null=True)
+
 
     def __str__(self):
         return self.employee_number
 
     def get_api_url(self):
-        return reverse("api_show_shoe", kwargs={"pk": self.pk})
+        return reverse("api_show_technician", kwargs={"pk": self.pk})
 
 class Status(models.Model):
     """
@@ -29,7 +30,7 @@ class Status(models.Model):
     """
 
     id = models.PositiveSmallIntegerField(primary_key=True)
-    name = models.CharField(max_length=10, unique=True, )
+    name = models.CharField(max_length=10, unique=True, null=True)
 
     def __str__(self):
         return self.name
@@ -47,9 +48,10 @@ class Appointment(models.Model):
         return appointment
 
 
+    vin = models.CharField(max_length=17, unique=True)
     name = models.CharField(max_length=200)
-    date = models.DateField(auto_now_add=False)
-    time = models.TimeField(auto_now_add=False)
+    date = models.DateField(auto_now_add=True)
+    time = models.TimeField(auto_now_add=True)
     reason_for_service = models.TextField(max_length=2000)
     vip = models.BooleanField(default=False)
 
@@ -71,12 +73,12 @@ class Appointment(models.Model):
         on_delete=models.PROTECT,
     )
 
-    def approve(self):
+    def cancel(self):
         status = Status.objects.get(name="CANCELED")
         self.status = status
         self.save()
 
-    def reject(self):
+    def complete(self):
         status = Status.objects.get(name="COMPLETED")
         self.status = status
         self.save()
@@ -85,7 +87,7 @@ class Appointment(models.Model):
         return self.automobile.vin
 
     def get_api_url(self):
-        return reverse("api_show_shoe", kwargs={"pk": self.pk})
+        return reverse("api_show_appointment", kwargs={"pk": self.pk})
 
     class Meta:
         ordering = ("date", "time")  # Default ordering for presentation
