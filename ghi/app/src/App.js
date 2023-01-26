@@ -7,11 +7,12 @@ import ModelForm from './ModelForm'
 import ModelList from './ModelList'
 import SalesPersonForm from './SalesPersonForm';
 import AutomobileForm from './AutomobileForm';
-import AutomobilesList from './AutomobilesList';
+import AutomobilesList from './AutomobilesList'
 import TechnicianForm from './TechnicianForm';
 import CustomerForm from './CustomerForm';
 import SalesRecordForm from './SalesRecordForm';
 import AppointmentForm from './AppointmentForm';
+import SalesRecordList from './SalesRecordList';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/CustomerForm" element={<CustomerForm />} />
           <Route path="/SalesRecordForm" element={<SalesRecordForm />} />
           <Route path="/AppointmentForm" element={<AppointmentForm />} />
+          <Route path="/SalesRecordList" element={<SalesRecordList />} />
         </Routes>
       </div>
     </BrowserRouter>

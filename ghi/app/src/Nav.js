@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
-
 function Nav() {
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -9,7 +8,7 @@ function Nav() {
   const [open4, setOpen4] = useState(false);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-success nav-custom">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark nav-custom">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
           CarCar
@@ -26,10 +25,15 @@ function Nav() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className="collapse navbar-collapse btn-group" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <div className="dropdown ml-3">
-              <button className="btn btn-secondary" onClick={() => setOpen(!open)}>
+            <div className="dropdown ml-3 mt-3">
+            {/* add this to every other nav drop down */}
+              <button
+                className="btn btn-success btn-secondary nav-item"
+                // The Sucess keyword is defining the color. Any other waords would be in bootstrap
+                onClick={() => setOpen(!open)}
+              >
                 Manufacturer
               </button>
               <div
@@ -57,9 +61,9 @@ function Nav() {
               </div>
             </div>
 
-            <div className="dropdown ml-3">
+            <div className="dropdown m-3">
               <button
-                className="btn btn-secondary"
+                className="btn btn-success btn-secondary nav-item"
                 onClick={() => setOpen2(!open2)}
               >
                 Models
@@ -89,9 +93,9 @@ function Nav() {
               </div>
             </div>
 
-            <div className="dropdown ml-3">
+            <div className="dropdown ml-3 mt-3">
               <button
-                className="btn btn-secondary"
+                className="btn btn-success btn-secondary nav-item"
                 onClick={() => setOpen3(!open3)}
               >
                 Automobile
@@ -113,7 +117,7 @@ function Nav() {
                   <NavLink
                     className="dropdown-item"
                     aria-current="page"
-                    to="/AutomobileList"
+                    to="./AutomobilesList"
                   >
                     Automobile List
                   </NavLink>
@@ -121,9 +125,9 @@ function Nav() {
               </div>
             </div>
 
-            <div className="dropdown ml-3">
+            <div className="dropdown m-3">
               <button
-                className="btn btn-secondary"
+                className="btn btn-success btn-secondary nav-item"
                 onClick={() => setOpen4(!open4)}
               >
                 Sales
@@ -181,7 +185,13 @@ function Nav() {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link active" aria-current="page" to="/AppointmentForm">Appointment Form</NavLink>
+              <NavLink
+                className="nav-link active"
+                aria-current="page"
+                to="/AppointmentForm"
+              >
+                Appointment Form
+              </NavLink>
             </li>
           </ul>
         </div>
