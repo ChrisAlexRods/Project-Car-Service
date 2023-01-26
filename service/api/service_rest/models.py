@@ -3,7 +3,7 @@ from django.urls import reverse
 # Create your models here.
 
 class AutomobileVO(models.Model):
-    vin = models.CharField(max_length=17, unique=True)
+    vin = models.CharField(max_length=17)
 
     def __str__(self):
         return self.vin
@@ -24,31 +24,27 @@ class Technician(models.Model):
     def get_api_url(self):
         return reverse("api_show_technician", kwargs={"pk": self.pk})
 
-APPOINTMENT_STATUS = (
-    ("SCHEDULED", "SCHEDULED"),
-    ("COMPLETED", "COMPLETED"),
-    ("CANCELED", "CANCELED"),
-)
 
-class Status(models.Model):
-    """
-    The Status VO model provides a status to an appointment, which
-    can be SCHEDULED, COMPLETED, or CANCELED.
-    """
-    name = models.CharField(
-        max_length=20,
-        choices=APPOINTMENT_STATUS,
-        default="SCHEDULED"
-    )
-#     id = models.PositiveSmallIntegerField(primary_key=True)
-#     name = models.CharField(max_length=10, unique=True, null=True)
 
-#     def __str__(self):
-#         return self.name
+# class Status(models.Model):
+#     """
+#     The Status VO model provides a status to an appointment, which
+#     can be SCHEDULED, COMPLETED, or CANCELED.
+#     """
+#     name = models.CharField(
+#         max_length=20,
+#         choices=APPOINTMENT_STATUS,
+#         default="SCHEDULED"
+#     )
+# #     id = models.PositiveSmallIntegerField(primary_key=True)
+# #     name = models.CharField(max_length=10, unique=True, null=True)
 
-    class Meta:
-        ordering = ("name",)  # Default ordering for Status
-        verbose_name_plural = "statuses"  #
+# #     def __str__(self):
+# #         return self.name
+
+    # class Meta:
+    #     ordering = ("name",)  # Default ordering for Status
+    #     verbose_name_plural = "statuses"  #
 
 class Appointment(models.Model):
 
@@ -60,12 +56,19 @@ class Appointment(models.Model):
     #     return appointment
 
 
-    vin = models.CharField(max_length=17, unique=True)
+    vin = models.CharField(max_length=17)
     name = models.CharField(max_length=200)
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
     reason_for_service = models.TextField(max_length=2000)
     vip = models.BooleanField(default=False)
+    status = models.CharField(
+        max_length=20,
+        choices=(
+
+        ),
+        default="SCHEDULED"
+    )
 
     # automobile = models.ForeignKey(
     #     AutomobileVO,
@@ -73,11 +76,11 @@ class Appointment(models.Model):
     #     on_delete=models.CASCADE,
     # )
 
-    status = models.ForeignKey(
-        Status,
-        related_name="appointments",
-        on_delete=models.PROTECT,
-    )
+    # status = models.ForeignKey(
+    #     Status,
+    #     related_name="appointments",
+    #     on_delete=models.PROTECT,
+    # )
 
     technician = models.ForeignKey(
         Technician,

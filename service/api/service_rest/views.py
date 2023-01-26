@@ -31,11 +31,11 @@ class TechnicianDetailEncoder(ModelEncoder):
 
 class AppointmentListEncoder(ModelEncoder):
     model = Appointment
-    properties = ["id", "vin", "name", "date", "time", "reason_for_service", "status", "technician"]
-    def get_extra_data(self, o):
-        return {
-            "status": o.status.name,
-        }
+    properties = ["id", "vin", "name", "vip", "date", "time", "reason_for_service", "status", "technician"]
+    # def get_extra_data(self, o):
+    #     return {
+    #         "status": o.Status.name,
+    #     }
     encoders = {
         # "automobile": AutomobileVOEncoder(),
         "technician": TechnicianDetailEncoder(),
@@ -43,12 +43,12 @@ class AppointmentListEncoder(ModelEncoder):
 class AppointmentDetailEncoder(ModelEncoder):
     model = Appointment
     properties = [
-        "id", "vin", "name", "date", "time", "reason_for_service", "status", "technician"
+        "id", "vin", "name", "vip", "date", "time", "reason_for_service", "status", "technician"
     ]
-    def get_extra_data(self, o):
-        return {
-            "status": o.status.name,
-        }
+    # def get_extra_data(self, o):
+    #     return {
+    #         "status": o.Status.name,
+    #     }
     encoders = {
         # "automobile": AutomobileVOEncoder(),
         "technician": TechnicianDetailEncoder(),
