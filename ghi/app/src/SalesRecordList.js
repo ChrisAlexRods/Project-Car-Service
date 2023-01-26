@@ -32,6 +32,7 @@ function SalesRecordList(){
                   <th>Sales Person Name</th>
                   <th>Customer Name</th>
                   <th>Sale Price</th>
+                  <th>Employee Number</th>
               </tr>
             </thead>
             <tbody>
@@ -43,6 +44,7 @@ function SalesRecordList(){
                       <td>{ sales_record.sales_person.sales_name }</td>
                       <td>{ sales_record.customer.customer_name }</td>
                       <td>{ sales_record.sales_price }</td>
+                      <td>{sales_record.sales_person.employee_number}</td>
                   </tr>
                   );
               })}
