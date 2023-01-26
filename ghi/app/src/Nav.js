@@ -33,7 +33,7 @@ function Nav() {
                 Manufacturer
               </button>
               <div
-                class={`dropdown-menu ${open ? "show" : ""}`}
+                className={`dropdown-menu ${open ? "show" : ""}`}
                 aria-labelledby="dropdownMenuButton"
               >
                 <li className="nav-item">
