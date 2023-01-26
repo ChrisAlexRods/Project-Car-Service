@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 function SalesRecordList(){
     const[sales_record, setSales_record] = useState([])
+    const[filterValue, setFilterValue] = useState("")
 
     const getData = async () => {
         const response = await fetch('http://localhost:8090/api/sale_record/');
@@ -17,6 +18,12 @@ function SalesRecordList(){
         getData()
       }, [])
 
+    const handleChange = (e) => {
+      setFilterValue(e.target.value)
+    }
+
+    console.log(filterValue)
+
     return (
         <table className="table table-striped">
             <thead>
@@ -28,7 +35,8 @@ function SalesRecordList(){
               </tr>
             </thead>
             <tbody>
-              {sales_record && sales_record.map(sales_record => {
+              {sales_record.filter(record => record.sales_person.sales_name.toLowerCase().includes(filterValue.toLowerCase()))
+                .map(sales_record => {
                   return (
                   <tr key={sales_record.id}>
                       <td>{ sales_record.vin}</td>
@@ -39,6 +47,8 @@ function SalesRecordList(){
                   );
               })}
             </tbody>
+            <h5>Filter by Sales Person Name</h5>
+            <input onChange ={handleChange} placeholder = "Filter For Name"/>
         </table>
     )
 }
