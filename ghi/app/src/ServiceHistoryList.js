@@ -41,7 +41,7 @@ function ServiceHistoryList() {
                       <td>{ appointment.reason_for_service }</td>
                       <td>{ appointment.vip }</td>
                       <td>{ appointment.status }</td>
-                      <td>{ appointment.technician }</td>
+                      <td>{ appointment.technician.name }</td>
                   </tr>
                   );
               })}
