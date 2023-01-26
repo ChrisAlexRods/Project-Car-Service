@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 function AutomobilesList() {
-  const [automobiles, setAutomobiles] = useState([])
+  const [automobile, setAutomobiles] = useState([])
 
   const getData = async () => {
     const response = await fetch('http://localhost:8100/api/automobiles/');
@@ -9,7 +9,8 @@ function AutomobilesList() {
     if (response.ok) {
       const data = await response.json();
       console.log(data);
-      setAutomobiles(data.automobiles)
+      setAutomobiles(data.autos)
+      // console.log(data.automobiles)
     }
   }
 
@@ -43,14 +44,14 @@ function AutomobilesList() {
               </tr>
             </thead>
             <tbody>
-              {automobiles && automobiles.map(automobile => {
+              {automobile && automobile.map(autos => {
                   return (
-                  <tr key={automobile.id}>
-                      <td>{ automobile.vin }</td>
-                      <td>{ automobile.model.name }</td>
-                      <td>{ automobile.color }</td>
-                      <td>{ automobile.year }</td>
-                      <td><button className="btn btn-med btn-primary" onClick={() => handleDelete(automobile.vin)}>Delete</button></td>
+                  <tr key={autos.id}>
+                      <td>{ autos.vin }</td>
+                      <td>{ autos.model.name }</td>
+                      <td>{ autos.color }</td>
+                      <td>{ autos.year }</td>
+                      <td><button className="btn btn-med btn-primary" onClick={() => handleDelete(autos.vin)}>Delete</button></td>
                   </tr>
                   );
               })}

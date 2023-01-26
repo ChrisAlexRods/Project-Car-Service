@@ -1,28 +1,15 @@
 import { useEffect, useState } from 'react';
 
-function AppointmentsList() {
-  const [automobiles, setAutomobiles] = useState([])
+function ServiceHistoryList() {
+  const [appointments, setAppointments] = useState([])
 
   const getData = async () => {
-    const response = await fetch('http://localhost:8100/api/automobiles/');
+    const response = await fetch('http://localhost:8080/api/appointments/');
 
     if (response.ok) {
       const data = await response.json();
-      setAutomobiles(data.automobiles)
-    }
-  }
-
-  const handleDelete = async (vin) => {
-    const url = `http://localhost:8100/api/automobiles/${vin}`
-    const fetchConfig = {
-        method: 'delete',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    }
-    const response = await fetch(url, fetchConfig)
-    if (response.ok) {
-        getData()
+      setAppointments(data.appointments)
+      console.log(data)
     }
   }
 
@@ -35,21 +22,26 @@ function AppointmentsList() {
             <thead>
               <tr>
                   <th>VIN</th>
-                  <th>Model Name</th>
-                  <th>Color</th>
-                  <th>Year</th>
-                  <th>Delete</th>
+                  <th>Customer Name</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Reason for Service</th>
+                  <th>VIP</th>
+                  <th>Status</th>
+                  <th>Technician</th>
               </tr>
             </thead>
             <tbody>
-              {automobiles && automobiles.map(automobile => {
+              {appointments && appointments.map(appointment => {
                   return (
-                  <tr key={automobile.id}>
-                      <td>{ automobile.vin }</td>
-                      <td>{ automobile.model.name }</td>
-                      <td>{ automobile.color }</td>
-                      <td>{ automobile.year }</td>
-                      <td><button className="btn btn-med btn-primary" onClick={() => handleDelete(automobile.vin)}>Delete</button></td>
+                  <tr key={appointment.id}>
+                      <td>{ appointment.vin }</td>
+                      <td>{ appointment.date }</td>
+                      <td>{ appointment.time }</td>
+                      <td>{ appointment.reason_for_service }</td>
+                      <td>{ appointment.vip }</td>
+                      <td>{ appointment.status }</td>
+                      <td>{ appointment.technician }</td>
                   </tr>
                   );
               })}
@@ -58,4 +50,4 @@ function AppointmentsList() {
     )
 }
 
-export default AppointmentsList;
+export default ServiceHistoryList;

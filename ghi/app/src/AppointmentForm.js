@@ -2,8 +2,14 @@ import React, {useEffect, useState } from 'react';
 
 function AppointmentForm() {
 
-    const [status, setStatus] = useState([])
+    // const [status, setStatus] = useState([])
     const [technicians, setTechnicians] = useState([])
+
+    const status_choices = [
+        { value: "SCHEDULED", label: "SCHEDULED" },
+        { value: "COMPLETED", label: "COMPLETED" },
+        { value: "CANCELED", label: "CANCELED" }
+    ];
 
     const [formData, setFormData] = useState({
         vin: '',
@@ -11,25 +17,32 @@ function AppointmentForm() {
         date: '',
         time: '',
         reason_for_service: '',
-        vip: '',
         status: '',
         technician: '',
+        // vin: '',
+        // name: '',
+        // date: '',
+        // time: '',
+        // reason_for_service: '',
+        // vip: '',
+        // status: '',
+        // technician: '',
       })
     //   console.log(formData)
 
-    const fetchStatusData = async () => {
-        const url = 'http://localhost:8080/api/appointments/';
-        const response = await fetch(url);
-        console.log(response)
-        if (response.ok) {
-            const data = await response.json();
-            setStatus(data.status);
-            // console.log(status)
-        }
-    }
-    useEffect(() => {
-        fetchStatusData();
-    }, []);
+    // const fetchStatusData = async () => {
+    //     const url = 'http://localhost:8080/api/appointments/';
+    //     const response = await fetch(url);
+    //     console.log(response)
+    //     if (response.ok) {
+    //         const data = await response.json();
+    //         setStatus(data.status);
+    //         // console.log(status)
+    //     }
+    // }
+    // useEffect(() => {
+    //     fetchStatusData();
+    // }, []);
 
     const fetchTechnicianData = async () => {
         const url = 'http://localhost:8080/api/technicians/';
@@ -45,6 +58,7 @@ function AppointmentForm() {
         fetchTechnicianData();
     }, []);
 
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -56,6 +70,8 @@ function AppointmentForm() {
             'Content-Type': 'application/json',
             },
         };
+        console.log(formData)
+        console.log("this is the formdata")
         const response = await fetch(url, fetchOptions);
         if (response.ok) {
             setFormData({
@@ -64,9 +80,16 @@ function AppointmentForm() {
                 date: '',
                 time: '',
                 reason_for_service: '',
-                vip: '',
                 status: '',
                 technician: '',
+                // vin: '',
+                // name: '',
+                // date: '',
+                // time: '',
+                // reason_for_service: '',
+                // vip: '',
+                // status: '',
+                // technician: '',
             })
         }
     }
@@ -109,18 +132,29 @@ function AppointmentForm() {
                                         <label htmlFor="reason_for_service">Reason for Service</label>
                                         <textarea onChange={handleFormChange} value={formData.reason_for_service} required placeholder="Reason for Service" id="reason_for_service" name="reason_for_service" className="form-control" rows="3" ></textarea>
                                     </div>
-                                    <div className=" mb-3">
+                                    {/* <div className=" mb-3">
                                             <label htmlFor="vip">VIP</label>
-                                            <input onChange={handleFormChange} value={formData.vip} required placeholder="Reason for Service" type="checkbox" id="vip" name="vip" className="CheckboxInput" />
-                                    </div>
+                                            <input onChange={handleFormChange} value={formData.vip} placeholder="Reason for Service" type="checkbox" id="vip" name="vip" className="CheckboxInput" />
+                                    </div> */}
                                     <div className="mb-3">
-                                        <select onChange={handleFormChange} value={formData.status} name="status" id="status" className="ChoiceField" required>
+                                        {/* <select onChange={handleFormChange} value={formData.status} name="status" id="status" className="ChoiceField" required>
                                             <option value="">Status</option>
-                                            {/* {statuses.map(status => {
+                                            {status.map(choices => {
                                             return (
-                                                <option key={status.name} value={status.name}>{status.name}</option>
+                                                <option key={choices.name} value={choices.name}>{choices.id}</option>
                                             )
-                                            })} */}
+                                            })}
+                                        </select> */}
+                                        {/* <select> */}
+                                        <select onChange={handleFormChange} value={formData.status} name="status" id="status" className="form-select" required>
+                                            <option value="">Appointment Status</option>
+                                            {status_choices.map((choice) => (
+
+                                                <option key={choice.value} value={choice.value} label={choice.label}>
+                                                    {choice.value}
+                                                </option>
+
+                                            ))}
                                         </select>
                                     </div>
                                     <div className="mb-3">
@@ -132,6 +166,7 @@ function AppointmentForm() {
                                             )
                                             })}
                                         </select>
+
                                     </div>
 
 
