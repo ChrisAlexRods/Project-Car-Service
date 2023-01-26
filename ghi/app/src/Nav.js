@@ -113,7 +113,7 @@ function Nav() {
                     Automobile Form
                   </NavLink>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <NavLink
                     className="dropdown-item"
                     aria-current="page"
@@ -121,7 +121,7 @@ function Nav() {
                   >
                     Automobile List
                   </NavLink>
-                </li>
+                </li> */}
               </div>
             </div>
 
@@ -192,6 +192,24 @@ function Nav() {
               >
                 Appointment Form
               </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" aria-current="page" to="/AutomobilesList">Automobile List</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" aria-current="page" to="/ServiceHistoryList">Service History List</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" aria-current="page" to="/AppointmentsList">Appointments List</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" aria-current="page" to="/AutomobilesList">Automobile List</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" aria-current="page" to="/ServiceHistoryList">Service History List</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" aria-current="page" to="/AppointmentsList">Appointments List</NavLink>
             </li>
           </ul>
         </div>
