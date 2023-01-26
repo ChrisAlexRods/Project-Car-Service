@@ -31,11 +31,12 @@ class TechnicianDetailEncoder(ModelEncoder):
 
 class AppointmentListEncoder(ModelEncoder):
     model = Appointment
+    # properties = ["id", "vin", "name", "vip", "date", "time", "reason_for_service", "status", "technician"]
     properties = ["id", "vin", "name", "date", "time", "reason_for_service", "status", "technician"]
-    def get_extra_data(self, o):
-        return {
-            "status": o.status.name,
-        }
+    # def get_extra_data(self, o):
+    #     return {
+    #         "status": o.Status.name,
+    #     }
     encoders = {
         # "automobile": AutomobileVOEncoder(),
         "technician": TechnicianDetailEncoder(),
@@ -44,11 +45,12 @@ class AppointmentDetailEncoder(ModelEncoder):
     model = Appointment
     properties = [
         "id", "vin", "name", "date", "time", "reason_for_service", "status", "technician"
+        # "id", "vin", "name", "vip", "date", "time", "reason_for_service", "status", "technician"
     ]
-    def get_extra_data(self, o):
-        return {
-            "status": o.status.name,
-        }
+    # def get_extra_data(self, o):
+    #     return {
+    #         "status": o.Status.name,
+    #     }
     encoders = {
         # "automobile": AutomobileVOEncoder(),
         "technician": TechnicianDetailEncoder(),
@@ -119,7 +121,9 @@ def api_show_technician(request, pk):
     #         safe=False,
     #     )
 
-
+# def my_view(request):
+#     status_choices = Appointment.status.choices
+#     return render(request, 'my_template.html', {'status_choices': status_choices})
 
 @require_http_methods(["GET", "POST"])
 def api_list_appointments(request):
@@ -132,28 +136,43 @@ def api_list_appointments(request):
         )
     else:
         content = json.loads(request.body)
-        # try:
-        content = {
-            "technician": Technician.objects.get(pk=content["technician"]),
-            # "automobile": AutomobileVO.objects.get(vin=content["automobile"]),
-        }
+        try:
+            technician = Technician.objects.get(id=content["technician"])
+            content["technician"] = technician
+            # print("technicianPOANFEPOIANFEPOIANEFPOINSEPGFIONSEPGUNSEPIUGPUNPISNGPISUNGPISERUNPSIURNS")
+            # print(technician)
+            # print("technicianPOANFEPOIANFEPOIANEFPOINSEPGFIONSEPGUNSEPIUGPUNPISNGPISUNGPISERUNPSIURNS")
+            # print(content)
+            # content = {
+            #     "technician": Technician.objects.get(pk=content["technician"]),
+            #     "automobile": AutomobileVO.objects.get(vin=content["automobile"]),
+            # }
+        # except Technician.DoesNotExist:
+        #     return JsonResponse(
+        #         {"message": "Invalid Technician"},
+        #         status=400,
+        #    )
+
+                #BLAHBLAHBLAHBLAH
+        except Exception as e:
+            response = JsonResponse({"message": str(e)})
+            response.status_code = 500
+            return response
+        # automobiles = AutomobileVO.objects.get.all()
+        # automobiles = AutomobileVO.objects.filter(vin__in=automobiles)
+        # print(content)
+        automobiles = list(AutomobileVO.objects.all())
+        vins = []
+        for auto in automobiles:
+            vins.append(auto.__dict__["vin"])
+        if content["vin"] in vins:
+            content["vip"] = True
         appointment = Appointment.objects.create(**content)
         return JsonResponse(
             appointment,
             encoder=AppointmentDetailEncoder,
             safe=False,
         )
-        # except Technician.DoesNotExist:
-        #     return JsonResponse(
-        #         {"message": "Invalid Technician"},
-        #         status=400,
-        #    )
-                #BLAHBLAHBLAHBLAH
-        # except Exception as e:
-        #     response = JsonResponse({"message": str(e)})
-        #     response.status_code = 500
-        #     return response
-
 
 @require_http_methods(["GET", "PUT", "DELETE"])
 def api_show_appointment(request, pk):

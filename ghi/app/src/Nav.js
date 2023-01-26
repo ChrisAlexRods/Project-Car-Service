@@ -180,6 +180,9 @@ function Nav() {
                 Technician Form
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" aria-current="page" to="/AppointmentForm">Appointment Form</NavLink>
+            </li>
           </ul>
         </div>
       </div>
