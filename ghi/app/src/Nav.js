@@ -32,10 +32,8 @@ function Nav() {
         >
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <div className="dropdown ml-3 mt-3">
-              {/* add this to every other nav drop down */}
               <button
                 className="btn btn-dark btn-secondary nav-item"
-                // The Sucess keyword is defining the color. Any other waords would be in bootstrap
                 onClick={() => setOpen(!open)}
               >
                 Manufacturer
