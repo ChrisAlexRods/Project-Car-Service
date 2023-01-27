@@ -10,8 +10,7 @@ function AutomobilesList() {
       const data = await response.json();
       console.log(data);
       setAutomobiles(data.autos)
-      // console.log(data.automobiles)
-    }
+       }
   }
 
   const handleDelete = async (vin) => {
