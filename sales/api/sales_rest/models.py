@@ -9,7 +9,6 @@ class AutomobileVO(models.Model):
         return f"{self.vin}"
 
 
-
 class SalesPerson(models.Model):
     sales_name = models.CharField(max_length=200, unique=True)
     employee_number = models.BigIntegerField()
@@ -24,7 +23,7 @@ class SalesPerson(models.Model):
 class Customer(models.Model):
     customer_name = models.CharField(max_length=200, unique=True)
     address = models.CharField(max_length=200, unique=True)
-    phone_number = models.CharField (max_length=11)
+    phone_number = models.CharField(max_length=11)
 
     def __str__(self):
         return f"{self.customer_name} {self.address} {self.phone_number}"
@@ -51,9 +50,10 @@ class SalesRecord(models.Model):
     )
     sales_price = models.PositiveSmallIntegerField()
 
-
     def get_api_url(self):
         return reverse("list_of_sales_people", kwargs={"pk": self.pk})
 
     def __str__(self):
-        return f"{self.automobile} {self.sales_person} {self.customer} {self.sales_price}"
+        return (
+            f"{self.automobile} {self.sales_person} {self.customer} {self.sales_price}"
+        )
