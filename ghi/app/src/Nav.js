@@ -109,15 +109,6 @@ function Nav() {
                     Automobile Form
                   </NavLink>
                 </li>
-                {/* <li className="nav-item">
-                  <NavLink
-                    className="dropdown-item"
-                    aria-current="page"
-                    to="/AutomobilesList"
-                  >
-                    Automobile List
-                  </NavLink>
-                </li> */}
               </div>
             </div>
 

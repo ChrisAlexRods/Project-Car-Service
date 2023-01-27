@@ -2,21 +2,17 @@ from django.db import models
 from django.urls import reverse
 # Create your models here.
 
+
 class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17)
 
     def __str__(self):
         return self.vin
 
-# class Vip(models.Model):
-#     vip = models.BooleanField(default=False)
-
 
 class Technician(models.Model):
-
     name = models.CharField(max_length=200)
     employee_number = models.CharField(max_length=25, unique=True, null=True)
-
 
     def __str__(self):
         return self.employee_number
@@ -24,27 +20,6 @@ class Technician(models.Model):
     def get_api_url(self):
         return reverse("api_show_technician", kwargs={"pk": self.pk})
 
-
-
-# class Status(models.Model):
-#     """
-#     The Status VO model provides a status to an appointment, which
-#     can be SCHEDULED, COMPLETED, or CANCELED.
-#     """
-#     name = models.CharField(
-#         max_length=20,
-#         choices=APPOINTMENT_STATUS,
-#         default="SCHEDULED"
-#     )
-# #     id = models.PositiveSmallIntegerField(primary_key=True)
-# #     name = models.CharField(max_length=10, unique=True, null=True)
-
-# #     def __str__(self):
-# #         return self.name
-
-    # class Meta:
-    #     ordering = ("name",)  # Default ordering for Status
-    #     verbose_name_plural = "statuses"  #
 
 class Appointment(models.Model):
     vin = models.CharField(max_length=17)
@@ -78,4 +53,4 @@ class Appointment(models.Model):
         return reverse("api_show_appointment", kwargs={"pk": self.pk})
 
     class Meta:
-        ordering = ("date", "time")  # Default ordering for presentation
+        ordering = ("date", "time")

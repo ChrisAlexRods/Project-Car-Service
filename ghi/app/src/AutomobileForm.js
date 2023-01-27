@@ -1,7 +1,6 @@
 import React, {useEffect, useState } from 'react';
 
 function AutomobileForm() {
-
     const [models, setModels] = useState([])
 
     const [formData, setFormData] = useState({
@@ -10,18 +9,14 @@ function AutomobileForm() {
         vin: '',
         model_id: '',
       })
-    //   console.log(formData)
 
     const fetchData = async () => {
         const url = 'http://localhost:8100/api/models/';
         const response = await fetch(url);
-        // console.log(response)
         if (response.ok) {
             const data = await response.json();
             setModels(data.models);
-            // console.log(bins)
         }
-
     }
 
     useEffect(() => {
@@ -30,7 +25,6 @@ function AutomobileForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         const url = 'http://localhost:8100/api/automobiles/';
         const fetchOptions = {
             method: 'post',

@@ -1,8 +1,7 @@
 import React, {useEffect, useState } from 'react';
 
-function AppointmentForm() {
 
-    // const [status, setStatus] = useState([])
+function AppointmentForm() {
     const [technicians, setTechnicians] = useState([])
 
     const status_choices = [
@@ -19,45 +18,20 @@ function AppointmentForm() {
         reason_for_service: '',
         status: '',
         technician: '',
-        // vin: '',
-        // name: '',
-        // date: '',
-        // time: '',
-        // reason_for_service: '',
-        // vip: '',
-        // status: '',
-        // technician: '',
       })
-    //   console.log(formData)
-
-    // const fetchStatusData = async () => {
-    //     const url = 'http://localhost:8080/api/appointments/';
-    //     const response = await fetch(url);
-    //     console.log(response)
-    //     if (response.ok) {
-    //         const data = await response.json();
-    //         setStatus(data.status);
-    //         // console.log(status)
-    //     }
-    // }
-    // useEffect(() => {
-    //     fetchStatusData();
-    // }, []);
 
     const fetchTechnicianData = async () => {
         const url = 'http://localhost:8080/api/technicians/';
         const response = await fetch(url);
-        // console.log(response)
         if (response.ok) {
             const data = await response.json();
             setTechnicians(data.technicians);
-            // console.log(bins)
         }
     }
+
     useEffect(() => {
         fetchTechnicianData();
     }, []);
-
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -70,8 +44,7 @@ function AppointmentForm() {
             'Content-Type': 'application/json',
             },
         };
-        console.log(formData)
-        console.log("this is the formdata")
+
         const response = await fetch(url, fetchOptions);
         if (response.ok) {
             setFormData({
@@ -82,14 +55,6 @@ function AppointmentForm() {
                 reason_for_service: '',
                 status: '',
                 technician: '',
-                // vin: '',
-                // name: '',
-                // date: '',
-                // time: '',
-                // reason_for_service: '',
-                // vip: '',
-                // status: '',
-                // technician: '',
             })
         }
     }
@@ -132,28 +97,13 @@ function AppointmentForm() {
                                         <label htmlFor="reason_for_service">Reason for Service</label>
                                         <textarea onChange={handleFormChange} value={formData.reason_for_service} required placeholder="Reason for Service" id="reason_for_service" name="reason_for_service" className="form-control" rows="3" ></textarea>
                                     </div>
-                                    {/* <div className=" mb-3">
-                                            <label htmlFor="vip">VIP</label>
-                                            <input onChange={handleFormChange} value={formData.vip} placeholder="Reason for Service" type="checkbox" id="vip" name="vip" className="CheckboxInput" />
-                                    </div> */}
                                     <div className="mb-3">
-                                        {/* <select onChange={handleFormChange} value={formData.status} name="status" id="status" className="ChoiceField" required>
-                                            <option value="">Status</option>
-                                            {status.map(choices => {
-                                            return (
-                                                <option key={choices.name} value={choices.name}>{choices.id}</option>
-                                            )
-                                            })}
-                                        </select> */}
-                                        {/* <select> */}
                                         <select onChange={handleFormChange} value={formData.status} name="status" id="status" className="form-select" required>
                                             <option value="">Appointment Status</option>
                                             {status_choices.map((choice) => (
-
                                                 <option key={choice.value} value={choice.value} label={choice.label}>
                                                     {choice.value}
                                                 </option>
-
                                             ))}
                                         </select>
                                     </div>
@@ -161,44 +111,12 @@ function AppointmentForm() {
                                         <select onChange={handleFormChange} value={formData.technician} name="technician" id="technician" className="form-select" required>
                                             <option value="">Choose a technician</option>
                                             {technicians.map(technician => {
-                                            return (
-                                                <option key={technician.id} value={technician.id}>{technician.name}</option>
-                                            )
-                                            })}
-                                        </select>
-
-                                    </div>
-
-
-
-
-                                    {/* <div className="form-floating mb-3">
-                                        <input onChange={handleFormChange} value={formData.reason_for_service} required placeholder="Reason for Service" type="text" id="reason_for_service" name="reason_for_service" className="form-control" />
-                                        <label htmlFor="reason_for_service">Reason for Service</label>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <select onChange={handleFormChange} value={formData.model} name="model" id="model" className="form-select" required>
-                                            <option value="">Choose a model</option>
-                                            {models.map(model => {
-                                            return (
-                                                <option key={model.id} value={model.id}>{model.name}</option>
-                                            )
+                                                return (
+                                                    <option key={technician.id} value={technician.id}>{technician.name}</option>
+                                                )
                                             })}
                                         </select>
                                     </div>
-                                    <div className="form-floating mb-3">
-                                        <input onChange={handleFormChange} value={formData.color} required placeholder="Color" type="text" id="color" name="color" className="form-control" />
-                                        <label htmlFor="color">Color</label>
-                                    </div>
-                                    <div className="form-floating mb-3">
-                                        <input onChange={handleFormChange} value={formData.year} required placeholder="Year" type="text" id="year" name="year" className="form-control" />
-                                        <label htmlFor="year">Year</label>
-                                    </div>
-                                    <div className="form-floating mb-3">
-                                        <input onChange={handleFormChange} value={formData.vin} required placeholder="VIN" type="text" id="vin" name="vin" className="form-control" />
-                                        <label htmlFor="vin">VIN</label>
-                                    </div> */}
                                 </div>
                             </div>
                             <button className="btn btn-lg btn-primary">Create</button>

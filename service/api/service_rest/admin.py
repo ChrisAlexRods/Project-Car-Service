@@ -9,7 +9,3 @@ class AppointmentAdmin(admin.ModelAdmin):
 @admin.register(Technician)
 class TechnicianAdmin(admin.ModelAdmin):
     pass
-
-# @admin.register(Status)
-# class StatusAdmin(admin.ModelAdmin):
-#     pass
