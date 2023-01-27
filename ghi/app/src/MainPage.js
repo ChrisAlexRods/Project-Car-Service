@@ -26,7 +26,7 @@ function MainPage() {
         </p>
         <div className="img-container">
           {model.map((mod) => (
-            <div
+            <div key={mod.id}
               className="card"
               style={{
                 width: "300px",
@@ -41,7 +41,7 @@ function MainPage() {
                 alt={mod.name}
               />
               <div className="card-body">
-                <h5 className="card-title">{mod.name}</h5>
+                <p className="card-title">{mod.name}</p>
                 <p className="card-text">
                   Manufacturer: {mod.manufacturer.name}
                 </p>
