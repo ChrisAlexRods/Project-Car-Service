@@ -1,19 +1,20 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MainPage from './MainPage';
-import Nav from './Nav';
-import ManufacturerForm from './ManufacturerForm'
-import ManufacturerList from './ManufacturerList'
-import ModelForm from './ModelForm'
-import ModelList from './ModelList'
-import SalesPersonForm from './SalesPersonForm';
-import AutomobileForm from './AutomobileForm';
-import AutomobilesList from './AutomobilesList';
-import TechnicianForm from './TechnicianForm';
-import CustomerForm from './CustomerForm';
-import SalesRecordForm from './SalesRecordForm';
-import AppointmentForm from './AppointmentForm';
-import ServiceHistoryList from './ServiceHistoryList';
-import AppointmentsList from './AppointmentsList';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MainPage from "./MainPage";
+import Nav from "./Nav";
+import ManufacturerForm from "./ManufacturerForm";
+import ManufacturerList from "./ManufacturerList";
+import ModelForm from "./ModelForm";
+import ModelList from "./ModelList";
+import SalesPersonForm from "./SalesPersonForm";
+import AutomobileForm from "./AutomobileForm";
+import AutomobilesList from "./AutomobilesList";
+import TechnicianForm from "./TechnicianForm";
+import CustomerForm from "./CustomerForm";
+import SalesRecordForm from "./SalesRecordForm";
+import AppointmentForm from "./AppointmentForm";
+import SalesRecordList from "./SalesRecordList";
+import ServiceHistoryList from "./ServiceHistoryList";
+import AppointmentsList from "./AppointmentsList";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/CustomerForm" element={<CustomerForm />} />
           <Route path="/SalesRecordForm" element={<SalesRecordForm />} />
           <Route path="/AppointmentForm" element={<AppointmentForm />} />
+          <Route path="/SalesRecordList" element={<SalesRecordList />} />
           <Route path="/ServiceHistoryList" element={<ServiceHistoryList />} />
           <Route path="/AppointmentsList" element={<AppointmentsList />} />
         </Routes>
