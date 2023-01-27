@@ -22,38 +22,40 @@ function SalesRecordList() {
   };
 
   return (
-    <table className="table table-striped">
-      <thead>
-        <tr>
-          <th>VIN</th>
-          <th>Sales Person Name</th>
-          <th>Customer Name</th>
-          <th>Sale Price</th>
-          <th>Employee Number</th>
-        </tr>
-      </thead>
-      <tbody>
-        {sales_record
-          .filter((record) =>
-            record.sales_person.sales_name
-              .toLowerCase()
-              .includes(filterValue.toLowerCase())
-          )
-          .map((sales_record) => {
-            return (
-              <tr key={sales_record.id}>
-                <td>{sales_record.vin}</td>
-                <td>{sales_record.sales_person.sales_name}</td>
-                <td>{sales_record.customer.customer_name}</td>
-                <td>{sales_record.sales_price}</td>
-                <td>{sales_record.sales_person.employee_number}</td>
-              </tr>
-            );
-          })}
-      </tbody>
-      <h5>Filter by Sales Person Name</h5>
+    <>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>VIN</th>
+            <th>Sales Person Name</th>
+            <th>Customer Name</th>
+            <th>Sale Price</th>
+            <th>Employee Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sales_record
+            .filter((record) =>
+              record.sales_person.sales_name
+                .toLowerCase()
+                .includes(filterValue.toLowerCase())
+            )
+            .map((sales_record) => {
+              return (
+                <tr key={sales_record.id}>
+                  <td>{sales_record.vin}</td>
+                  <td>{sales_record.sales_person.sales_name}</td>
+                  <td>{sales_record.customer.customer_name}</td>
+                  <td>{sales_record.sales_price}</td>
+                  <td>{sales_record.sales_person.employee_number}</td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
+      <p>Filter by Sales Person Name</p>
       <input onChange={handleChange} placeholder="Filter For Name" />
-    </table>
+    </>
   );
 }
 
