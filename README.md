@@ -43,3 +43,4 @@ The sales microservice has three models:
 - SalesPerson: Contains the sales_name and employee number fields. Both act as foreign keys to the SalesRecord model.
 
 - SalesRecord: This model is the culmination of all other models. It uses a foreign key from inventory and two other foreign keys within the sales project to give a detailed record of a sold car. The final field is the sales price, which takes a number for the price.
+![Homepage](https://user-images.githubusercontent.com/105233007/227309345-f6f39803-edcf-422b-8c8b-b1003e71dc1f.PNG)
