@@ -1,15 +1,15 @@
-# Carcar Project README
-Welcome to the Carcar project! This project is a car dealership management system, consisting of various microservices that handle inventory, sales, and services.
+# Car Service Project README
+Welcome to the Car Service project! This project is a car dealership management system, consisting of various microservices that handle inventory, sales, and services.
 
 ## Getting Started
-To get started with the Carcar project, follow these steps to set up your environment:
+To get started with the Car Service project, follow these steps to set up your environment:
 
 1. Create a Docker volume for the project data:`docker volume create beta-data`
 2. Build the project using Docker Compose:`docker-compose build`
 3. Run the project using Docker Compose:`docker-compose up`
 
 ## Project Overview
-The Carcar project consists of several microservices:
+The Car Service project consists of several microservices:
 
 - Inventory Microservice
 - Sales Microservice
